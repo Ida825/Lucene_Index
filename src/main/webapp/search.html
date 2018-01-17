@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		$("#searchBt").click(function(){
+			$.ajax({
+				url:'searchFood',
+				data:'keyWord='+$("input[name='keyWord']").val(),
+				dataType:'json',
+				success:function(jd){
+					$("div[name='c']").remove()
+					//集合转成json  就是数组 遍历数组 
+					for(var i=0;i<jd.length;i++){
+
+						var html="<div name='c'>"+
+						"<h3>"+jd[i].foodname+"</h3>"+
+						"<span>"+jd[i].foodname+"价格是："+jd[i].price+"</span>"+
+						"<hr>"+
+						"</div>";
+						$("#foodDiv").append(html);
+					}
+					
+					
+				}
+			})
+			
+		})
+		
+	})
+</script>
+</head>
+<body>
+	<img src="bd_logo1.png"><br/>
+	<input type="text" name="keyWord"/><input id="searchBt" type="button" value="百度一下"/>
+	<div id="foodDiv">
+	
+	</div>
+</body>
+</html>
